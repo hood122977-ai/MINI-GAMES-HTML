@@ -1,7 +1,7 @@
 /* Browser-only score book. Embedded games relay records to their menu page,
    so file:// play also has a shared score book without a server. */
 window.Scores=(()=>{'use strict';
- const KEY='hs-scorebook-v1',games={runner:['공룡 점프런','m'],crossing:['길건너 개구리','칸'],aim:['클릭 타겟','점'],breakout:['벽돌깨기','점'],mines:['지뢰찾기','점'],maze:['공포 미로','점'],reaction:['반응속도','ms']},runs=new Map();let list=[],remote=[],tracked=null,dialog=null;
+ const KEY='hs-scorebook-v1',games={runner:['공룡 점프런','m'],crossing:['길건너 개구리','칸'],aim:['클릭 타겟','점'],breakout:['벽돌깨기','점'],mines:['지뢰찾기','점'],maze:['공포 미로','점'],reaction:['반응속도','ms'],ironmarch:['IRONMARCH','승']},runs=new Map();let list=[],remote=[],tracked=null,dialog=null;
  const valid=r=>r&&Object.hasOwn(games,r.game)&&typeof r.id==='string'&&r.id.length<100&&Number.isFinite(r.score)&&r.score>=0&&r.score<1e10&&Number.isFinite(r.at)&&typeof r.detail==='string'&&r.detail.length<250;
  try{const raw=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(raw))list=raw.filter(valid);}catch{}
  const merge=records=>{const map=new Map();for(const r of records)if(valid(r)&&(!map.has(r.id)||r.at>=map.get(r.id).at))map.set(r.id,r);return Object.keys(games).flatMap(game=>[...map.values()].filter(r=>r.game===game).sort((a,b)=>b.at-a.at).slice(0,30));};

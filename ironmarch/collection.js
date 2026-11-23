@@ -1,0 +1,1 @@
+document.querySelectorAll('.collection-return').forEach(a=>a.addEventListener('click',e=>{window.ironmarchCollection?.leave();if(window.parent!==window){e.preventDefault();window.parent.postMessage({type:'hs-score:menu'},'*');}}));
